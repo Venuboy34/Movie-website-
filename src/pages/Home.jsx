@@ -27,34 +27,36 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen text-white px-4 py-6">
-      {/* Logo & Search */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-4xl font-extrabold text-filmzi-accent tracking-wide">Filmzi</h1>
+    <div className="bg-black text-white min-h-screen px-4 py-8">
+      {/* Logo + Search */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+        <h1 className="text-4xl font-extrabold text-filmzi-accent">Filmzi</h1>
         <input
           type="text"
-          placeholder="Search here..."
-          className="w-full sm:w-80 px-4 py-2 rounded-md text-black outline-none"
+          placeholder="Search movies..."
+          className="w-full md:w-96 px-4 py-2 rounded-md text-black outline-none shadow-md"
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
         />
       </div>
 
       {/* Section Title */}
-      <div className="bg-gray-800 px-4 py-2 rounded mb-4 border-l-4 border-yellow-400">
-        <h2 className="text-xl font-semibold">🎬 Latest Releases</h2>
+      <div className="bg-gray-800 px-4 py-3 rounded-md shadow mb-6 border-l-4 border-red-500">
+        <h2 className="text-2xl font-bold">🎬 Latest Releases</h2>
       </div>
 
-      {/* Movie Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {filteredMovies.length > 0 ? (
-          filteredMovies.map(movie => (
+      {/* Movies Grid */}
+      {filteredMovies.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {filteredMovies.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
-          ))
-        ) : (
-          <p className="text-gray-400 col-span-full text-center">No matching movies found.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-gray-400 mt-12">
+          No movies match your search.
+        </div>
+      )}
     </div>
   )
 }
