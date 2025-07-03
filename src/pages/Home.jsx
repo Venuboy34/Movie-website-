@@ -40,7 +40,7 @@ const Home = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-400">No movies found</p>
+            <p className="text-gray-400">No movies available</p>
           </div>
         )}
       </section>
@@ -48,7 +48,9 @@ const Home = () => {
       {/* Welcome Section */}
       <section className="text-center py-16 bg-gray-900 rounded-lg">
         <h1 className="text-4xl font-bold text-filmzi-accent mb-4">Welcome to Filmzi</h1>
-        <p className="text-xl text-gray-300 mb-8">Your ultimate destination for ad-free movie streaming and downloads</p>
+        <p className="text-xl text-gray-300 mb-8">
+          Your ultimate destination for ad-free movie streaming and downloads
+        </p>
         <div className="flex justify-center space-x-8 text-gray-400">
           <div className="flex items-center">
             <span className="text-2xl mr-2">🎥</span>
