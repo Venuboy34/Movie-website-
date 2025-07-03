@@ -1,71 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMovies } from '../context/MovieContext'
 import MovieCard from '../components/MovieCard'
 
 const Home = () => {
   const { allMovies, loading, error } = useMovies()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredMovies = allMovies.filter(movie =>
+    movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-filmzi-accent"></div>
+      <div className="flex justify-center items-center min-h-screen bg-black">
+        <div className="animate-spin rounded-full h-24 w-24 border-b-4 border-filmzi-accent"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-filmzi-accent mb-4">Error</h2>
-          <p className="text-gray-400">{error}</p>
-        </div>
+      <div className="flex justify-center items-center min-h-screen text-red-500 bg-black">
+        <p>{error}</p>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* All Movies Section */}
-      <section className="mb-12">
-        <div className="flex items-center mb-6">
-          <span className="text-2xl mr-3">🎬</span>
-          <h2 className="text-3xl font-bold text-filmzi-text">All Movies</h2>
-        </div>
-        {allMovies.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {allMovies.map(movie => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-400">No movies available</p>
-          </div>
-        )}
-      </section>
+    <div className="bg-black min-h-screen text-white px-4 py-6">
+      {/* Logo & Search */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+        <h1 className="text-4xl font-extrabold text-filmzi-accent tracking-wide">Filmzi</h1>
+        <input
+          type="text"
+          placeholder="Search here..."
+          className="w-full sm:w-80 px-4 py-2 rounded-md text-black outline-none"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
+      </div>
 
-      {/* Welcome Section */}
-      <section className="text-center py-16 bg-gray-900 rounded-lg">
-        <h1 className="text-4xl font-bold text-filmzi-accent mb-4">Welcome to Filmzi</h1>
-        <p className="text-xl text-gray-300 mb-8">
-          Your ultimate destination for ad-free movie streaming and downloads
-        </p>
-        <div className="flex justify-center space-x-8 text-gray-400">
-          <div className="flex items-center">
-            <span className="text-2xl mr-2">🎥</span>
-            <span>High Quality</span>
-          </div>
-          <div className="flex items-center">
-            <span className="text-2xl mr-2">🚫</span>
-            <span>No Ads</span>
-          </div>
-          <div className="flex items-center">
-            <span className="text-2xl mr-2">⬇️</span>
-            <span>Download</span>
-          </div>
-        </div>
-      </section>
+      {/* Section Title */}
+      <div className="bg-gray-800 px-4 py-2 rounded mb-4 border-l-4 border-yellow-400">
+        <h2 className="text-xl font-semibold">🎬 Latest Releases</h2>
+      </div>
+
+      {/* Movie Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map(movie => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))
+        ) : (
+          <p className="text-gray-400 col-span-full text-center">No matching movies found.</p>
+        )}
+      </div>
     </div>
   )
 }
