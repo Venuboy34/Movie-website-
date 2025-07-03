@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Plyr custom styles */
+.plyr--video {
+  background: #000;
+}
+
+.plyr__control--overlaid {
+  background: #FF0000;
+}
+
+.plyr__control--overlaid:hover {
+  background: #ff4d4d;
+}
+
+.plyr__controls {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+}
+
+.plyr__progress__buffer {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.plyr__progress__played {
+  background: #FF0000;
+}
+
+.plyr__volume--display {
+  background: #FF0000;
+}
