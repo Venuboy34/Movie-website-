@@ -12,15 +12,15 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section - Netflix Style */}
-      <div className="relative h-[75vh] bg-gradient-to-b from-black/40 to-black">
+      {/* Hero Section */}
+      <div className="relative h-[85vh] bg-gradient-to-b from-black/40 to-black">
         <div className="absolute inset-0 bg-black/60 z-10" />
         
         <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 max-w-3xl">
             Unlimited Movies, TV Shows, and More
           </h1>
-          <p className="text-xl mb-8 max-w-2xl">
+          <p className="text-xl mb-8 max-w-2xl text-gray-300">
             Watch anywhere. Stream HD movies instantly.
           </p>
           
@@ -28,7 +28,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search movies..."
-              className="w-full p-4 pr-12 rounded bg-black/70 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+              className="w-full p-4 pr-12 rounded-lg bg-black/70 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600 text-white placeholder-gray-400"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -55,31 +55,55 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Movie Grid Section */}
+      {/* Content Sections */}
       <div className="max-w-7xl mx-auto px-4 py-8 -mt-40 relative z-30">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6">
-          {searchTerm ? `Results for "${searchTerm}"` : 'Popular on StreamFlix'}
-        </h2>
+        {/* Popular Now Section */}
+        <Section title="Popular Now" movies={movies.slice(0, 6)} loading={loading} />
         
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
-          </div>
-        ) : filteredMovies.length === 0 ? (
-          <div className="text-center py-20">
-            <h3 className="text-xl mb-2">No movies found</h3>
-            <p className="text-gray-400">Try a different search term</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-            {filteredMovies.map(movie => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
+        {/* Trending Movies */}
+        <Section title="Trending Movies" movies={movies.slice(6, 12)} loading={loading} />
+        
+        {/* Search Results */}
+        {searchTerm && (
+          <div className="mt-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6">
+              Search Results for "{searchTerm}"
+            </h2>
+            {filteredMovies.length === 0 ? (
+              <div className="text-center py-12">
+                <h3 className="text-xl mb-2">No movies found</h3>
+                <p className="text-gray-400">Try a different search term</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+                {filteredMovies.map(movie => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
     </div>
   )
 }
+
+// Section component for different content categories
+const Section = ({ title, movies, loading }) => (
+  <div className="mb-12">
+    <h2 className="text-2xl md:text-3xl font-bold mb-6">{title}</h2>
+    {loading ? (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+      </div>
+    ) : (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+        {movies.map(movie => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 export default Home
