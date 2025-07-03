@@ -3,7 +3,7 @@ import { useMovies } from '../context/MovieContext'
 import MovieCard from '../components/MovieCard'
 
 const Home = () => {
-  const { heroMovies, latestMovies, loading, error } = useMovies()
+  const { allMovies, loading, error } = useMovies()
 
   if (loading) {
     return (
@@ -26,40 +26,21 @@ const Home = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Hero Section */}
+      {/* All Movies Section */}
       <section className="mb-12">
         <div className="flex items-center mb-6">
           <span className="text-2xl mr-3">🎬</span>
-          <h2 className="text-3xl font-bold text-filmzi-text">Featured Movies</h2>
+          <h2 className="text-3xl font-bold text-filmzi-text">All Movies</h2>
         </div>
-        {heroMovies.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {heroMovies.map(movie => (
+        {allMovies.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {allMovies.map(movie => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-400">No featured movies available</p>
-          </div>
-        )}
-      </section>
-
-      {/* Latest Section */}
-      <section className="mb-12">
-        <div className="flex items-center mb-6">
-          <span className="text-2xl mr-3">🆕</span>
-          <h2 className="text-3xl font-bold text-filmzi-text">Latest Movies</h2>
-        </div>
-        {latestMovies.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {latestMovies.map(movie => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-400">No latest movies available</p>
+            <p className="text-gray-400">No movies found</p>
           </div>
         )}
       </section>
