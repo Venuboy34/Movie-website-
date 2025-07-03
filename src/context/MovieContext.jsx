@@ -14,6 +14,7 @@ const movieReducer = (state, action) => {
   switch (action.type) {
     case 'SET_LOADING':
       return { ...state, loading: action.payload }
+
     case 'SET_MOVIES':
       return {
         ...state,
@@ -22,8 +23,10 @@ const movieReducer = (state, action) => {
         latestMovies: action.payload.filter(movie => movie.is_latest),
         loading: false
       }
+
     case 'SET_ERROR':
       return { ...state, error: action.payload, loading: false }
+
     case 'UPDATE_MOVIE':
       const updatedMovies = state.movies.map(movie =>
         movie.id === action.payload.id ? action.payload : movie
@@ -34,6 +37,7 @@ const movieReducer = (state, action) => {
         heroMovies: updatedMovies.filter(movie => movie.is_hero),
         latestMovies: updatedMovies.filter(movie => movie.is_latest)
       }
+
     default:
       return state
   }
@@ -87,12 +91,15 @@ export const MovieProvider = ({ children }) => {
   }, [])
 
   return (
-    <MovieContext.Provider value={{
-      ...state,
-      fetchMovies,
-      fetchMovie,
-      updateMovie
-    }}>
+    <MovieContext.Provider
+      value={{
+        ...state,
+        allMovies: state.movies, // Alias for clarity
+        fetchMovies,
+        fetchMovie,
+        updateMovie,
+      }}
+    >
       {children}
     </MovieContext.Provider>
   )
