@@ -3,21 +3,19 @@ import { Link } from 'react-router-dom'
 
 const MovieCard = ({ movie }) => {
   return (
-    <Link to={`/movie/${movie.id}`} className="group block bg-gray-900 rounded-lg overflow-hidden shadow hover:shadow-lg transition">
-      {/* Poster */}
-      <div className="aspect-[2/3] overflow-hidden">
-        <img
-          src={movie.poster}
-          alt={movie.title}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition duration-300"
-        />
-      </div>
-
-      {/* Title */}
-      <div className="px-2 py-3">
-        <h3 className="text-sm font-medium text-white truncate group-hover:text-filmzi-accent transition">
-          {movie.title}
-        </h3>
+    <Link to={`/movie/${movie.id}`} className="bg-zinc-900 hover:bg-zinc-800 transition rounded-xl overflow-hidden shadow-md">
+      <img
+        src={movie.poster || 'https://via.placeholder.com/300x450?text=No+Poster'}
+        alt={movie.title}
+        className="w-full h-72 object-cover"
+      />
+      <div className="p-3 space-y-1">
+        <h3 className="text-lg font-semibold text-white truncate">{movie.title}</h3>
+        <div className="text-sm text-gray-400 flex flex-wrap gap-2">
+          {movie.quality_480p && <span className="bg-red-600 px-2 py-0.5 rounded text-white text-xs">480p</span>}
+          {movie.quality_720p && <span className="bg-red-600 px-2 py-0.5 rounded text-white text-xs">720p</span>}
+          {movie.quality_1080p && <span className="bg-red-600 px-2 py-0.5 rounded text-white text-xs">1080p</span>}
+        </div>
       </div>
     </Link>
   )
