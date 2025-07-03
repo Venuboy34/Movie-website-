@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === Global Reset === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* === Body Styling === */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -18,7 +20,17 @@ body {
   color: #FFFFFF;
 }
 
-/* Plyr custom styles */
+/* === Link Styling === */
+a {
+  color: #FF0000;
+  text-decoration: none;
+}
+a:hover {
+  color: #ff4d4d;
+  text-decoration: underline;
+}
+
+/* === Plyr Player Custom Styling === */
 .plyr--video {
   background: #000;
 }
